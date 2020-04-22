@@ -49,8 +49,7 @@ namespace MyForum
                     opts.Password.RequireDigit = false; // требуются ли цифры
                     opts.User.RequireUniqueEmail = true;    // уникальный email
                     opts.User.AllowedUserNameCharacters = ".@abcdefghijklmnopqrstuvwxyz"; // допустимые символы
-            })
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+            }).AddDefaultTokenProviders().AddEntityFrameworkStores<ApplicationDbContext>();
 
             //services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
             //    .AddEntityFrameworkStores<ApplicationDbContext>();
