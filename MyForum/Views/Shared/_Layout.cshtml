@@ -5,29 +5,67 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - MyForum</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="~/css/site.css" />
+
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">MyForum</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-3">
+            <div class="container-fluid">
+                <div class="pull-left m-r-md">
+                    <i class="fa fa-globe text-navy mid-icon"></i>
+                </div>
+                <div class="navbar-brand mr-3 logo">My Forum</div>
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <partial name="_LoginPartial" />
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <div class="navbar-nav">
+                        <a asp-controller="Home" asp-action="Index" class="nav-item nav-link active">Головна</a>
+                        <a href="#" class="nav-item nav-link">Про нас</a>
+                        <a asp-controller="Home" asp-action="Rules" class="nav-item nav-link">Правила</a>
+                    </div>
+                    <div class="navbar-nav ml-auto">
+
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <a asp-controller="Home" asp-action="Index" class="nav-item nav-link">@User.Identity.Name</a>
+                            <a href="#" class="nav-item nav-link" data-toggle="modal" data-target="#logoutModal">Вихід</a>
+                        }
+                        else
+                        {
+                            <a asp-controller="Account" asp-action="Register" class="nav-item nav-link">Зареєструватися</a>
+                            <a asp-controller="Account" asp-action="Login" class="nav-item nav-link">Увійти</a>
+                        }
+                        *
+
+
+                    </div>
                 </div>
             </div>
+            @*!-- Logout Modal-->*@
+            <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Готові вийти?</h5>
+                            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">Нажміть "Вихід" нижче, якщо ви готові закінчити поточну сесію.</div>
+                        <div class="modal-footer">
+                            <button class="btn btn-secondary" type="button" data-dismiss="modal">Відміна</button>
+                            
+                            <form method="post" asp-controller="Account" asp-action="Logout" >
+                                <input class="btn btn-primary" type="submit" value="Вихід" />
+                            </form>
+                           
+                        </div>
+                    </div>
+                </div>
+                </div>
         </nav>
     </header>
     <div class="container">
@@ -38,12 +76,12 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2020 - MyForum - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+           
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @RenderSection("Scripts", required: false)
+<script src="~/js/site.js" asp-append-version="true"></script>
+@RenderSection("Scripts", required: false)
 </body>
 </html>

@@ -24,4 +24,8 @@
     <PackageReference Include="MimeKit" Version="2.6.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\img\" />
+  </ItemGroup>
+
 </Project>

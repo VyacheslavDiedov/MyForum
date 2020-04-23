@@ -15,8 +15,7 @@
         <span asp-validation-for="Password"></span>
     </div>
     <div>
-        <label asp-for="RememberMe"></label><br />
-        <input asp-for="RememberMe" />
+        <a asp-controller="Account" asp-action="ForgotPassword" class="nav-item nav-link">Забув пароль</a>
     </div>
     <div>
         <input type="submit" value="Войти" />
