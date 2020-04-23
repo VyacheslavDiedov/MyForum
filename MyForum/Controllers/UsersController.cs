@@ -28,7 +28,7 @@ namespace MyForum.Controllers
                 User user = new User
                 {
                     Email = model.Email, UserName = model.Email, FirstName = model.FirstName, SecondName = model.SecondName,
-                    YearOfBirth = model.Year
+                    BirthDate = model.BirthDate, EmailConfirmed = true
                 };
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
@@ -53,7 +53,8 @@ namespace MyForum.Controllers
             {
                 return NotFound();
             }
-            EditUserViewModel model = new EditUserViewModel { Id = user.Id, Email = user.Email, Year = user.YearOfBirth, FirstName = user.FirstName, SecondName = user.SecondName };
+            EditUserViewModel model = new EditUserViewModel { Id = user.Id, Email = user.Email, BirthDate = user.BirthDate,
+                FirstName = user.FirstName, SecondName = user.SecondName };
             return View(model);
         }
 
@@ -67,7 +68,7 @@ namespace MyForum.Controllers
                 {
                     user.Email = model.Email;
                     user.UserName = model.Email;
-                    user.YearOfBirth = model.Year;
+                    user.BirthDate = model.BirthDate;
                     user.FirstName = model.FirstName;
                     user.SecondName = model.SecondName;
 
@@ -145,6 +146,12 @@ namespace MyForum.Controllers
                 }
             }
             return View(model);
+        }
+
+        public IActionResult UserProfile()
+        {
+
+            return View(_userManager.Users.ToList());
         }
 
     }

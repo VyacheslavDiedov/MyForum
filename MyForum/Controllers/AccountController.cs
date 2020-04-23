@@ -29,7 +29,7 @@ namespace MyForum.Controllers
         {
             if (ModelState.IsValid)
             {
-                User user = new User { Email = model.Email, UserName = model.Email, YearOfBirth = model.Year, 
+                User user = new User { Email = model.Email, UserName = model.Email, BirthDate = model.BirthDate, 
                     FirstName = model.FirstName, SecondName = model.SecondName};
                 // добавляем пользователя
                 var result = await _userManager.CreateAsync(user, model.Password);

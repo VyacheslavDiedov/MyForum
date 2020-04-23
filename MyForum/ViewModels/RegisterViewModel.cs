@@ -14,7 +14,7 @@ namespace MyForum.ViewModels
 
         [Required]
         [Display(Name = "Год рождения")]
-        public int Year { get; set; }
+        public DateTime BirthDate { get; set; }
 
         [Required]
         [Display(Name = "Имя")]

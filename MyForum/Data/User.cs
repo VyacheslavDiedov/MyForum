@@ -10,6 +10,10 @@ namespace MyForum.Data
     {
         public string FirstName { get; set; }
         public string SecondName { get; set; }
-        public int YearOfBirth { get; set; }
+        public int Gender { get; set; }
+        public DateTime BirthDate { get; set; }
+        public string Country { get; set; }
+        public string City { get; set; }
+
     }
 }

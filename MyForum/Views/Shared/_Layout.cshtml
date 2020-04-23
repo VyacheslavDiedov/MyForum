@@ -6,7 +6,7 @@
     <title>@ViewData["Title"] - MyForum</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="~/css/site.css" />
+    
 
 </head>
 <body>
@@ -30,7 +30,7 @@
 
                         @if (User.Identity.IsAuthenticated)
                         {
-                            <a asp-controller="Home" asp-action="Index" class="nav-item nav-link">@User.Identity.Name</a>
+                            <a asp-controller="Users" asp-action="UserProfile" class="nav-item nav-link">@User.Identity.Name</a>
                             <a href="#" class="nav-item nav-link" data-toggle="modal" data-target="#logoutModal">Вихід</a>
                         }
                         else
