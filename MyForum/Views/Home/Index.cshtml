@@ -28,7 +28,7 @@
                                         <div class="forum-icon">
                                             <i class="fa fa-bolt"></i>
                                         </div>
-                                        <a asp-controller="Posts" asp-action="Index" class="forum-item-title">@topic.Name </a>
+                                        <a asp-controller="Posts" asp-action="Index" asp-route-topicId ="@topic.Id" class="forum-item-title">@topic.Name </a>
                                         <div class="forum-sub-title">@topic.TopicDescription</div>
                                     </div>
                                     <div class="col-md-1 forum-info">

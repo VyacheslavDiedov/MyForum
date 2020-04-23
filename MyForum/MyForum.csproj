@@ -27,6 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Views\Posts\" />
     <Folder Include="Views\Topics\" />
     <Folder Include="wwwroot\img\" />
   </ItemGroup>
