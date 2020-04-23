@@ -14,6 +14,9 @@ namespace MyForum.Data
         public DateTime BirthDate { get; set; }
         public string Country { get; set; }
         public string City { get; set; }
+        public string PhotoName { get; set; }
+        public string AboutMe { get; set; }
+        public DateTime RegisterDate { get; set; }
 
     }
 }

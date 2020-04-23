@@ -15,7 +15,7 @@ namespace MyForum.Data
             string password = "_Aa123456";
             string FirstName = "Main";
             string SecondName = "Admin";
-            DateTime BirthDate = DateTime.Now;
+            DateTime RegisterDate = DateTime.Now;
             if (await roleManager.FindByNameAsync("admin") == null)
             {
                 await roleManager.CreateAsync(new IdentityRole("admin"));
@@ -28,7 +28,7 @@ namespace MyForum.Data
                     UserName = adminEmail,
                     FirstName = FirstName,
                     SecondName = SecondName,
-                    BirthDate = BirthDate,
+                    RegisterDate = RegisterDate,
                     EmailConfirmed = true
                 };
                 IdentityResult result = await userManager.CreateAsync(admin, password);

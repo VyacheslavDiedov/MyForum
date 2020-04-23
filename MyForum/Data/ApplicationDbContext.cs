@@ -15,6 +15,20 @@ namespace MyForum.Data
             Database.EnsureCreated();
         }
         public DbSet<Topic> Topics { get; set; }
+        public DbSet<Topic> TypeTopics { get; set; }
         public DbSet<Post> Posts { get; set; }
+    
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modelBuilder);
+
+        modelBuilder.Entity<TypeTopic>().HasData(
+            new TypeTopic[]
+            {
+                    new TypeTopic {Id = 1, Name = "General"},
+                    new TypeTopic {Id = 2, Name = "Other"}
+            });
+    }
     }
 }

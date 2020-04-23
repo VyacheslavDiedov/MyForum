@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
@@ -28,7 +29,7 @@ namespace MyForum.Controllers
                 User user = new User
                 {
                     Email = model.Email, UserName = model.Email, FirstName = model.FirstName, SecondName = model.SecondName,
-                    BirthDate = model.BirthDate, EmailConfirmed = true
+                    BirthDate = model.BirthDate, RegisterDate = DateTime.Now, EmailConfirmed = true
                 };
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)

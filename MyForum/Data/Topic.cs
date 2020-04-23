@@ -10,5 +10,8 @@ namespace MyForum.Data
         [Key]
         public int Id { get; set; }
         public string TopicName { get; set; }
+        public string TopicDescription { get; set; }
+        public int TypeTopicId { get; set; }
+        public virtual TypeTopic TypeTopic { get; set; }
     }
 }

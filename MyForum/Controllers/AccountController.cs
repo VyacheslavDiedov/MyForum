@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MyForum.Data;
@@ -30,7 +31,8 @@ namespace MyForum.Controllers
             if (ModelState.IsValid)
             {
                 User user = new User { Email = model.Email, UserName = model.Email, BirthDate = model.BirthDate, 
-                    FirstName = model.FirstName, SecondName = model.SecondName};
+                    FirstName = model.FirstName, SecondName = model.SecondName, RegisterDate = DateTime.Now
+            };
                 // добавляем пользователя
                 var result = await _userManager.CreateAsync(user, model.Password);
                  if (result.Succeeded)
