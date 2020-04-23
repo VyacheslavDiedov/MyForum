@@ -1,104 +1,112 @@
-﻿@{
+﻿@model IEnumerable<MyForum.Data.Topic>
+@{
     ViewData["Title"] = "Home Page";
 }
 
-    <link rel="stylesheet" href="~/css/site.css" />
+<link rel="stylesheet" href="~/css/site.css" />
 <div class="container">
     <div class="row">
         <div class="col-lg-12">
             <div class="wrapper wrapper-content animated fadeInRight">
 
-            <div class="ibox-content forum-container">
-                <div class="forum-title">
-                    <div>
-                        <button >Додати тему</button>
-                    </div>
-                    <div class="pull-right forum-desc">
-                        <samll>Total posts: 320,800</samll>
-                    </div>
-                    <h3>Головні теми</h3>
-                </div>
-
-                    <div class="forum-item active">
-                        <div class="row">
-                            <div class="col-md-9">
-                                <div class="forum-icon">
-                                    <i class="fa fa-bolt"></i>
-                                </div>
-                                <a href="forum_post.html" class="forum-item-title">Заголовок </a>
-                                <div class="forum-sub-title">Опис</div>
-                            </div>
-                            <div class="col-md-1 forum-info">
-                                <span class="views-number">
-                                    1216
-                                </span>
-                                <div>
-                                    <small>Views</small>
-                                </div>
-                            </div>
-                            <div class="col-md-1 forum-info">
-                                <span class="views-number">
-                                    368
-                                </span>
-                                <div>
-                                    <small>Topics</small>
-                                </div>
-                            </div>
-                            <div class="col-md-1 forum-info">
-                                <span class="views-number">
-                                    140
-                                </span>
-                                <div>
-                                    <small>Posts</small>
-                                </div>
-                            </div>
+                <div class="ibox-content forum-container">
+                    <div class="forum-title">
+                        <div>
+                            <a asp-controller="Topics" asp-action="Create" >Додати тему</a>
                         </div>
+                        <div class="pull-right forum-desc">
+                            <samll>Total posts: 320,800</samll>
+                        </div>
+                        <h3>Головні теми</h3>
                     </div>
-                    
+                    @foreach (var topic in Model)
+                    {
+                        if (topic.TypeTopicId == 1) { 
+                            <div class="forum-item active">
+                                <div class="row">
+                                    <div class="col-md-9">
+                                        <div class="forum-icon">
+                                            <i class="fa fa-bolt"></i>
+                                        </div>
+                                        <a href="forum_post.html" class="forum-item-title">@topic.TopicName </a>
+                                        <div class="forum-sub-title">@topic.TopicDescription</div>
+                                    </div>
+                                    <div class="col-md-1 forum-info">
+                                        <span class="views-number">
+                                            1216
+                                        </span>
+                                        <div>
+                                            <small>Views</small>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-1 forum-info">
+                                        <span class="views-number">
+                                            368
+                                        </span>
+                                        <div>
+                                            <small>Topics</small>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-1 forum-info">
+                                        <span class="views-number">
+                                            140
+                                        </span>
+                                        <div>
+                                            <small>Posts</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
 
-
-                <div class="forum-title">
+                    <div class="forum-title">
                         <div class="pull-right forum-desc">
                             <samll>Total posts: 17,800,600</samll>
                         </div>
                         <h3>Інші теми</h3>
                     </div>
 
-                    <div class="forum-item">
-                        <div class="row">
-                            <div class="col-md-9">
-                                <div class="forum-icon">
-                                    <i class="fa fa-clock-o"></i>
+                    @foreach (var topic in Model)
+                    {
+                        if (topic.TypeTopicId == 2) { 
+                            <div class="forum-item">
+                            <div class="row">
+                                <div class="col-md-9">
+                                    <div class="forum-icon">
+                                        <i class="fa fa-clock-o"></i>
+                                    </div>
+                                    <a href="forum_post.html" class="forum-item-title">@topic.TopicName</a>
+                                    <div class="forum-sub-title">@topic.TopicDescription</div>
                                 </div>
-                                <a href="forum_post.html" class="forum-item-title">Тема для гругоро чату</a>
-                                <div class="forum-sub-title">Опис другого чату</div>
-                            </div>
-                            <div class="col-md-1 forum-info">
-                                <span class="views-number">
-                                    1516
-                                </span>
-                                <div>
-                                    <small>Views</small>
+                                <div class="col-md-1 forum-info">
+                                    <span class="views-number">
+                                        1516
+                                    </span>
+                                    <div>
+                                        <small>Views</small>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-md-1 forum-info">
-                                <span class="views-number">
-                                    238
-                                </span>
-                                <div>
-                                    <small>Topics</small>
+                                <div class="col-md-1 forum-info">
+                                    <span class="views-number">
+                                        238
+                                    </span>
+                                    <div>
+                                        <small>Topics</small>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-md-1 forum-info">
-                                <span class="views-number">
-                                    180
-                                </span>
-                                <div>
-                                    <small>Posts</small>
+                                <div class="col-md-1 forum-info">
+                                    <span class="views-number">
+                                        180
+                                    </span>
+                                    <div>
+                                        <small>Posts</small>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    }
+                }
                 </div>
             </div>
         </div>

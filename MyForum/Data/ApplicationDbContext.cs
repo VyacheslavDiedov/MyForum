@@ -4,6 +4,7 @@ using System.Text;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using MyForum.Models;
+using MyForum.Data;
 
 namespace MyForum.Data
 {
@@ -30,5 +31,8 @@ namespace MyForum.Data
                     new TypeTopic {Id = 2, Name = "Other"}
             });
     }
+    
+
+    public DbSet<MyForum.Data.TypeTopic> TypeTopic { get; set; }
     }
 }
