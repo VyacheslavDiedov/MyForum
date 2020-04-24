@@ -45,6 +45,7 @@ namespace MyForum.Controllers
         public async Task<IActionResult> Create([Bind("Id,PostTitle,PostBody,AddPost,TopicId")] Post post)
         {
             post.AddPost = DateTime.Now;
+            post.UserName = User.Identity.Name;
             if (ModelState.IsValid)
             {
                 _context.Add(post);

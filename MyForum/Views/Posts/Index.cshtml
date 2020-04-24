@@ -82,15 +82,18 @@
                     <div>
                         Додано: @topic.AddPost
                         </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="forum-icon">
-                                        <i class="fa fa-comments-o"></i>
-                                    </div>
-                                    <a class="forum-item-title">@topic.PostTitle </a>
-                                    <div class="forum-sub-title">@topic.PostBody</div>
-                                </div>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <a class="forum-item-title">@topic.UserName </a>
+                        </div>
+                        <div class="col-md-10">
+                            <div class="forum-icon">
+                                <i class="fa fa-comments-o"></i>
                             </div>
+                            <a class="forum-item-title">@topic.PostTitle </a>
+                            <div class="forum-sub-title">@topic.PostBody</div>
+                        </div>
+                    </div>
                         </div>
                         }
 

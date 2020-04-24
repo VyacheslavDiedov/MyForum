@@ -15,8 +15,7 @@ namespace MyForum.Data
         [Required]
         public string PostBody { get; set; }
         public DateTime AddPost { get; set; }
-        //public string UserId { get; set; }
-        //public virtual User User { get; set; }
+        public string UserName { get; set; }
         public int TopicId { get; set; }
         public virtual Topic Topic { get; set; }
     }
