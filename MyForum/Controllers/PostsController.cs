@@ -1,58 +1,68 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Channels;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MyForum.Data;
+using MyForum.ViewModels;
 
 namespace MyForum.Controllers
 {
     public class PostsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private static int _topicId;
+        List<User> _users;
+        List<Post> _posts;
 
         public PostsController(ApplicationDbContext context)
         {
             _context = context;
         }
-
         // GET: Posts
         [HttpGet]
         [Route("index/{topicId:int?}")]
         public async Task<IActionResult> Index(int? topicId)
         {
-            ViewBag.NameTopics = _context.Topics.Find(topicId)?.Name;
-            ViewBag.CountPosts = _context.Posts.Where(p => p.TopicId == topicId).Count();
-            var applicationDbContext = _context.Posts.Include(p => p.Topic).Where(p => p.TopicId == topicId);
-            return View(await applicationDbContext.ToListAsync());
+            PostsViewModels pvm = new PostsViewModels { Posts = _posts, Users = _users };
+            _posts = new List<Post>(_context.Posts);
+            _users = new List<User>(_context.Users);
+            
+            if (topicId != null)
+            {
+                Console.WriteLine(_topicId);
+                _topicId = Convert.ToInt32(topicId);
+            }
+            ViewBag.NameUser = User.Identity.Name;
+            ViewBag.NameTopics = _context.Topics.Find(_topicId)?.Name;
+            ViewBag.CountPosts = _context.Posts.Where(p => p.TopicId == _topicId).Count();
+            pvm.Posts = _posts.Where(p => p.TopicId == _topicId);
+            pvm.Users = _users;
+            return View(pvm);
         }
 
-        // GET: Posts/Create
-        public IActionResult Create()
-        {
-            ViewData["TopicId"] = new SelectList(_context.Topics, "Id", "Id");
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id");
-            return View();
-        }
+       
 
         // POST: Posts/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,PostTitle,PostBody,AddPost,TopicId")] Post post)
+        public async Task<IActionResult> Create([Bind("Id,PostTitle,PostBody,AddPost")] Post post)
         {
             post.AddPost = DateTime.Now;
             post.UserName = User.Identity.Name;
+            post.TopicId = _topicId;
             if (ModelState.IsValid)
             {
                 _context.Add(post);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["TopicId"] = new SelectList(_context.Topics, "Id", "Id", post.TopicId);
+            
             return View(post);
         }
 
@@ -69,7 +79,6 @@ namespace MyForum.Controllers
             {
                 return NotFound();
             }
-            ViewData["TopicId"] = new SelectList(_context.Topics, "Id", "Id", post.TopicId);
             return View(post);
         }
 
@@ -78,8 +87,11 @@ namespace MyForum.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,PostTitle,PostBody,TopicId")] Post post)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,PostTitle,PostBody")] Post post)
         {
+            post.AddPost = DateTime.Now;
+            post.UserName = User.Identity.Name;
+            post.TopicId = _topicId;
             if (id != post.Id)
             {
                 return NotFound();

@@ -1,52 +1,8 @@
-﻿@model IEnumerable<MyForum.Data.Post>
+﻿@model MyForum.ViewModels.PostsViewModels
 
 @{
     ViewData["Title"] = "Post";
 }
-
-@*<h1>Index</h1>
-
-    <p>
-        <a asp-action="Create">Create New</a>
-    </p>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.PostTitle)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.PostBody)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Topic)
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-    @foreach (var item in Model) {
-        @if(item.Topic.Id == item.TopicId) {
-
-            <tr>
-
-                <td>
-                    @Html.DisplayFor(modelItem => item.PostTitle)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PostBody)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Topic.Id)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                </td>
-            </tr>
-    }}
-        </tbody>
-    </table>*@
 
 <div class="container">
     <div class="row">
@@ -55,9 +11,6 @@
 
                 <div class="ibox-content forum-container">
                     <div class="forum-title">
-                        <div>
-                            <a asp-controller="Posts" asp-action="Create">Додати тему</a>
-                        </div>
                     </div>
                     <div class="forum-item">
                         <div class="row">
@@ -76,46 +29,83 @@
                     </div>
 
 
-                    @foreach (var topic in Model)
+                    @foreach (var topic in Model.Posts)
                     {
-                <div class="forum-item active">
-                    <div>
-                        Додано: @topic.AddPost
-                        </div>
-                    <div class="row">
-                        <div class="col-md-2">
-                            <a class="forum-item-title">@topic.UserName </a>
-                        </div>
-                        <div class="col-md-10">
-                            <div class="forum-icon">
-                                <i class="fa fa-comments-o"></i>
-                            </div>
-                            <a class="forum-item-title">@topic.PostTitle </a>
-                            <div class="forum-sub-title">@topic.PostBody</div>
-                        </div>
-                    </div>
-                        </div>
-                        }
-
                         <div class="forum-item active">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="forum-icon">
-                                    </div>
-                                    <textarea class="forum-item-title"> </textarea>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="forum-icon">
-                                        <i class="fa fa-comments-o"></i>
-                                    </div>
-                                    <textarea class="forum-item-title"> </textarea>
-                                </div>
-                            </div>
+                            <div class="row ">
+                                <div class="col-md-3">
+                                    @foreach (var user in Model.Users)
+                                    {
+                                        @if (user.Email == topic.UserName)
+                                        {
+                                            <div>
+                                                <img stale height="100px;" width="150px;" src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcS-YuJa_8NHGK4jZ96ZYQnQIowQ2urddQa3f09gcOmF25BB9OAu&usqp=CAU" />
+                                            </div>
+                                            <div>
+
+                                            </div>
+                                            <div>
+                                                @user.FirstName @user.SecondName
+                                            </div>
+                                            <div>
+                                                <a>@user.Email </a>
+                                                </div>
+                                            <div>Зареєстрований:
+                                                <div>
+                                                    <a>@user.RegisterDate </a>
+                                                </div>
+                                                    </div>
+                                                    }
+                                                    }
+
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <div>
+                                                        Додано: @topic.AddPost
+                                                    </div>
+                                                    <div class="forum-icon">
+                                                        <i class="fa fa-comments-o"></i>
+                                                    </div>
+                                                    <a class="forum-item-title">@topic.PostTitle </a>
+                                                    <div class="forum-sub-title">@topic.PostBody</div>
+                                                </div>
+                                                @if (ViewBag.NameUser == topic.UserName || ViewBag.NameUser == "admin@gmail.com")
+                                                {
+                                                    <div class="col-md-1">
+                                                        <a title="Змінити" asp-action="Edit" asp-route-id="@topic.Id">
+                                                            <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                <path d="M8.96853 3.3221L11.7733 6.18553L4.67373 13.4337L1.87059 10.5703L8.96853 3.3221ZM13.9015 2.6315L12.6507 1.35451C12.1673 0.860997 11.3824 0.860997 10.8974 1.35451L9.69921 2.57774L12.5039 5.4412L13.9015 4.01437C14.2764 3.63157 14.2764 3.01427 13.9015 2.6315ZM0.402824 14.5951C0.351782 14.8296 0.559184 15.0398 0.788927 14.9827L3.91432 14.2091L1.11119 11.3456L0.402824 14.5951Z" fill="#666666" />
+                                                            </svg>
+                                                        </a>
+                                                        <a title="Видалити" asp-action="Delete" asp-route-id="@topic.Id">
+                                                            <svg width="15" height="15" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                                                 viewBox="0 0 511.999 511.999" xml:space="preserve">
+                                                            <path style="fill: #666666;" d="M384.955,256l120.28-120.28c9.019-9.019,9.019-23.642,0-32.66L408.94,6.765c-9.019-9.019-23.642-9.019-32.66,0l-120.28,120.28L135.718,6.765c-9.019-9.019-23.642-9.019-32.66,0L6.764,103.058c-9.019,9.019-9.019,23.642,0,32.66l120.28,120.28L6.764,376.28c-9.019,9.019-9.019,23.642,0,32.66l96.295,96.294c9.019,9.019,23.642,9.019,32.66,0l120.28-120.28l120.28,120.28c9.019,9.019,23.642,9.019,32.66,0l96.295-96.294c9.019-9.019,9.019-23.642,0-32.66L384.955,256z" />
+
+
+
+                                            </svg>
+                                                        </a>
+                                                    </div>
+                                                }
+                                            </div>
                         </div>
-                    </div>
+                    }
+                    @if (User.Identity.IsAuthenticated) { 
+                    <form asp-action="Create" asp-controller="Posts" method="post">
+                        <div class="form-group">
+                            <label>Тема</label>
+                            <input class="form-control" name="PostTitle">
+                        </div>
+                        <div class="form-group">
+                            <label>Техт</label>
+                            <textarea name="PostBody" class="form-control" rows="3"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-secondary btn-lg btn-block">Відправити</button>
+                    </form>
+                    }
                 </div>
+            </div>
         </div>
     </div>
 </div>
