@@ -21,8 +21,7 @@ namespace MyForum.Controllers
         // GET: Topics
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Topics.Include(t => t.TypeTopic);
-            return View(await applicationDbContext.ToListAsync());
+            return View(await _context.Topics.ToListAsync());
         }
 
         // GET: Topics/Details/5
@@ -34,7 +33,6 @@ namespace MyForum.Controllers
             }
 
             var topic = await _context.Topics
-                .Include(t => t.TypeTopic)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (topic == null)
             {
@@ -47,7 +45,6 @@ namespace MyForum.Controllers
         // GET: Topics/Create
         public IActionResult Create()
         {
-            ViewData["TypeTopicId"] = new SelectList(_context.TypeTopic, "Id", "Name");
             return View();
         }
 
@@ -62,7 +59,6 @@ namespace MyForum.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["TypeTopicId"] = new SelectList(_context.TypeTopic, "Id", "Name", topic.TypeTopicId);
             return View(topic);
         }
 
@@ -79,7 +75,6 @@ namespace MyForum.Controllers
             {
                 return NotFound();
             }
-            ViewData["TypeTopicId"] = new SelectList(_context.TypeTopic, "Id", "Name", topic.TypeTopicId);
             return View(topic);
         }
 
@@ -115,7 +110,6 @@ namespace MyForum.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["TypeTopicId"] = new SelectList(_context.TypeTopic, "Id", "Name", topic.TypeTopicId);
             return View(topic);
         }
 
@@ -128,7 +122,6 @@ namespace MyForum.Controllers
             }
 
             var topic = await _context.Topics
-                .Include(t => t.TypeTopic)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (topic == null)
             {

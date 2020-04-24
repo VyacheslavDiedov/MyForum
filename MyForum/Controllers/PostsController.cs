@@ -23,33 +23,17 @@ namespace MyForum.Controllers
         [Route("index/{topicId:int?}")]
         public async Task<IActionResult> Index(int? topicId)
         {
+            ViewBag.NameTopics = _context.Topics.Find(topicId)?.Name;
+            ViewBag.CountPosts = _context.Posts.Where(p => p.TopicId == topicId).Count();
             var applicationDbContext = _context.Posts.Include(p => p.Topic).Where(p => p.TopicId == topicId);
             return View(await applicationDbContext.ToListAsync());
-        }
-
-        // GET: Posts/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var post = await _context.Posts
-                .Include(p => p.Topic)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (post == null)
-            {
-                return NotFound();
-            }
-
-            return View(post);
         }
 
         // GET: Posts/Create
         public IActionResult Create()
         {
             ViewData["TopicId"] = new SelectList(_context.Topics, "Id", "Id");
+            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id");
             return View();
         }
 
@@ -58,8 +42,9 @@ namespace MyForum.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,PostTitle,PostBody,TopicId")] Post post)
+        public async Task<IActionResult> Create([Bind("Id,PostTitle,PostBody,AddPost,TopicId")] Post post)
         {
+            post.AddPost = DateTime.Now;
             if (ModelState.IsValid)
             {
                 _context.Add(post);

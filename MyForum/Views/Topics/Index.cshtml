@@ -18,9 +18,6 @@
             <th>
                 @Html.DisplayNameFor(model => model.TopicDescription)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TypeTopic)
-            </th>
             <th></th>
         </tr>
     </thead>
@@ -32,9 +29,6 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.TopicDescription)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TypeTopic.Name)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |

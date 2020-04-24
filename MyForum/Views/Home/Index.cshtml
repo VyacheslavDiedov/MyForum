@@ -14,42 +14,53 @@
                         <div>
                             <a asp-controller="Topics" asp-action="Create" >Додати тему</a>
                         </div>
-                        <div class="pull-right forum-desc">
-                            <samll>Total posts: 320,800</samll>
-                        </div>
-                        <h3>Головні теми</h3>
                     </div>
+                    <div class="forum-item">
+                        <div class="row">
+                            <div class="col-md-9">
+                                <h3>Теми</h3>
+                            </div>
+                            <div class="col-md-1 forum-info">
+                                <span class="views-number">
+                                    @ViewBag.CountUsers
+                                </span>
+                                <div>
+                                    <small>Users</small>
+                                </div>
+                            </div>
+                            <div class="col-md-1 forum-info">
+                                <span class="views-number">
+                                    @ViewBag.CountTopics
+                                </span>
+                                <div>
+                                    <small>Topics</small>
+                                </div>
+                            </div>
+                            <div class="col-md-1 forum-info">
+                                <span class="views-number">
+                                    @ViewBag.CountPostsAll
+                                </span>
+                                <div>
+                                    <small>Posts</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+
                     @foreach (var topic in Model)
                     {
-                        if (topic.TypeTopicId == 1) { 
-                            <div class="forum-item active">
+                        <div class="forum-item active">
                                 <div class="row">
-                                    <div class="col-md-9">
+                                    <div class="col-md-11">
                                         <div class="forum-icon">
-                                            <i class="fa fa-bolt"></i>
+                                            <i class="fa fa-lightbulb-o"></i>
                                         </div>
                                         <a asp-controller="Posts" asp-action="Index" asp-route-topicId ="@topic.Id" class="forum-item-title">@topic.Name </a>
                                         <div class="forum-sub-title">@topic.TopicDescription</div>
                                     </div>
                                     <div class="col-md-1 forum-info">
                                         <span class="views-number">
-                                            1216
-                                        </span>
-                                        <div>
-                                            <small>Views</small>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-1 forum-info">
-                                        <span class="views-number">
-                                            368
-                                        </span>
-                                        <div>
-                                            <small>Topics</small>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-1 forum-info">
-                                        <span class="views-number">
-                                            140
                                         </span>
                                         <div>
                                             <small>Posts</small>
@@ -57,56 +68,7 @@
                                     </div>
                                 </div>
                             </div>
-                        }
                     }
-
-                    <div class="forum-title">
-                        <div class="pull-right forum-desc">
-                            <samll>Total posts: 17,800,600</samll>
-                        </div>
-                        <h3>Інші теми</h3>
-                    </div>
-
-                    @foreach (var topic in Model)
-                    {
-                        if (topic.TypeTopicId == 2) { 
-                            <div class="forum-item">
-                            <div class="row">
-                                <div class="col-md-9">
-                                    <div class="forum-icon">
-                                        <i class="fa fa-clock-o"></i>
-                                    </div>
-                                    <a href="forum_post.html" class="forum-item-title">@topic.Name</a>
-                                    <div class="forum-sub-title">@topic.TopicDescription</div>
-                                </div>
-                                <div class="col-md-1 forum-info">
-                                    <span class="views-number">
-                                        1516
-                                    </span>
-                                    <div>
-                                        <small>Views</small>
-                                    </div>
-                                </div>
-                                <div class="col-md-1 forum-info">
-                                    <span class="views-number">
-                                        238
-                                    </span>
-                                    <div>
-                                        <small>Topics</small>
-                                    </div>
-                                </div>
-                                <div class="col-md-1 forum-info">
-                                    <span class="views-number">
-                                        180
-                                    </span>
-                                    <div>
-                                        <small>Posts</small>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    }
-                }
                 </div>
             </div>
         </div>

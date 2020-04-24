@@ -9,9 +9,10 @@ namespace MyForum.Data
     {
         [Key]
         public int Id { get; set; }
+        [Required]
+        [MaxLength(100)]
         public string Name { get; set; }
+        [MaxLength(500)]
         public string TopicDescription { get; set; }
-        public int TypeTopicId { get; set; }
-        public virtual TypeTopic TypeTopic { get; set; }
     }
 }

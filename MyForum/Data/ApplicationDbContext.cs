@@ -20,19 +20,17 @@ namespace MyForum.Data
         public DbSet<Post> Posts { get; set; }
     
 
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
-    {
-        base.OnModelCreating(modelBuilder);
+    //protected override void OnModelCreating(ModelBuilder modelBuilder)
+    //{
+    //    base.OnModelCreating(modelBuilder);
 
-        modelBuilder.Entity<TypeTopic>().HasData(
-            new TypeTopic[]
-            {
-                    new TypeTopic {Id = 1, Name = "General"},
-                    new TypeTopic {Id = 2, Name = "Other"}
-            });
-    }
+    //        modelBuilder.Entity<TypeTopic>().HasData(
+    //            new TypeTopic[]
+    //            {
+    //                new TypeTopic {Id = 1, Name = "General"},
+    //                new TypeTopic {Id = 2, Name = "Other"}
+    //            });
+    //    }
     
-
-    public DbSet<MyForum.Data.TypeTopic> TypeTopic { get; set; }
     }
 }

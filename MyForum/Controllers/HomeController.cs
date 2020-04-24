@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
@@ -14,14 +15,19 @@ namespace MyForum.Controllers
     public class HomeController : Controller
     {
         ApplicationDbContext _db;
-        private static int _tourTypePhotoId;
 
         public HomeController(ApplicationDbContext context)
         {
             _db = context;
         }
 
-        public IActionResult Index() => View(_db.Topics.ToList());
+        public IActionResult Index()
+        {
+            ViewBag.CountTopics = _db.Topics.Count();
+            ViewBag.CountUsers = _db.Users.Count();
+            ViewBag.CountPostsAll = _db.Posts.Count();
+            return View(_db.Topics.ToList());
+        } 
 
         public IActionResult Rules()
         {
