@@ -18,19 +18,19 @@ namespace MyForum.Data
         public DbSet<Topic> Topics { get; set; }
         public DbSet<Topic> TypeTopics { get; set; }
         public DbSet<Post> Posts { get; set; }
-    
+        public DbSet<Post> Genders { get; set; }
 
-    //protected override void OnModelCreating(ModelBuilder modelBuilder)
-    //{
-    //    base.OnModelCreating(modelBuilder);
 
-    //        modelBuilder.Entity<TypeTopic>().HasData(
-    //            new TypeTopic[]
-    //            {
-    //                new TypeTopic {Id = 1, Name = "General"},
-    //                new TypeTopic {Id = 2, Name = "Other"}
-    //            });
-    //    }
-    
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Gender>().HasData(
+                new Gender[]
+                {
+                    new Gender {Id = 1, Name = "Female"},
+                    new Gender {Id = 2, Name = "Male"}
+                });
+        }
     }
 }

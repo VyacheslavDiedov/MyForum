@@ -21,6 +21,8 @@ namespace MyForum.Data
         public string AboutMe { get; set; }
         [Required]
         public DateTime RegisterDate { get; set; }
+        public int IdGender { get; set; }
+        public virtual Gender Gender { get; set; }
 
     }
 }
