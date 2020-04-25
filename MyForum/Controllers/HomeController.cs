@@ -25,10 +25,7 @@ namespace MyForum.Controllers
 
         public IActionResult Index()
         {
-            ViewBag.CountTopics = _db.Topics.Count();
-            ViewBag.CountUsers = _db.Users.Count();
-            ViewBag.CountPostsAll = _db.Posts.Count();
-            return View(_db.Topics.ToList());
+            return View();
         } 
 
         public IActionResult Rules()
