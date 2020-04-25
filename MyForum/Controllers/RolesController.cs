@@ -96,7 +96,7 @@ namespace MyForum.Controllers
                 await _userManager.AddToRolesAsync(user, addedRoles).ConfigureAwait(true);
 
                 await _userManager.RemoveFromRolesAsync(user, removedRoles).ConfigureAwait(true);
-                return RedirectToAction("Index", "Roles");
+                return RedirectToAction("Index", "Topics");
             }
             return NotFound();
         }

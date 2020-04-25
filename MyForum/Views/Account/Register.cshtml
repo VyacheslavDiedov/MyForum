@@ -7,44 +7,37 @@
 <h2>Реєстрація нового користувача</h2>
 <form method="post" asp-controller="Account" asp-action="Register">
     <div asp-validation-summary="ModelOnly"></div>
-    <div class="row">
-        <div class="col-md-2">
-            <div>Email</div>
-            <label asp-for="BirthDate"></label><br />
-            <label asp-for="BirthDate"></label><br />
-            <label asp-for="BirthDate"></label><br />
-        </div>
-        <div class="col-md-10">
-            <div>
+            <div >
+                <label asp-for="Email"></label><br />
                 <input asp-for="Email" />
                 <span asp-validation-for="Email"></span>
             </div>
-            <div>
-                
-                <input asp-for="BirthDate" />
-                <span asp-validation-for="BirthDate"></span>
-            </div>
-            <div>
-               
-                <input asp-for="FirstName" />
+            <div >
+                <label asp-for="FirstName"></label><br />
+                <input asp-for="FirstName"/>
                 <span asp-validation-for="FirstName"></span>
             </div>
-            <div>
-                
-                <input asp-for="SecondName" />
+            <div >
+                <label asp-for="SecondName"></label><br />
+                <input asp-for="SecondName"/>
                 <span asp-validation-for="SecondName"></span>
             </div>
-            <div> 
-                <input asp-for="Password" />
+            <div  >
+                <label asp-for="BirthDate"></label><br />
+                <input class="register-data-time" asp-for="BirthDate" />
+                <span asp-validation-for="BirthDate"></span>
+            </div>
+            <div >
+                <label asp-for="Password"></label><br />
+                <input asp-for="Password"/>
                 <span asp-validation-for="Password"></span>
             </div>
-            <div>
-                <input asp-for="PasswordConfirm" />
+            <div >
+                <label asp-for="PasswordConfirm"></label><br />
+                <input asp-for="PasswordConfirm"/>
                 <span asp-validation-for="PasswordConfirm"></span>
             </div>
             <div>
-                <input class="btn btn-primary btn-dark button-enter" type="submit" value="Зареєструватися" />
+                <input class="btn btn-primary btn-dark button-register" type="submit" value="Зареєструватися" />
             </div>
-        </div>
-        </div>
 </form>

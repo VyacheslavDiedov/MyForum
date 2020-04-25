@@ -23,10 +23,6 @@ namespace MyForum.Controllers
             _db = context;
         }
 
-        public IActionResult Index()
-        {
-            return View();
-        } 
 
         public IActionResult Rules()
         {

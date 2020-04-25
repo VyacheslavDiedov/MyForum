@@ -256,3 +256,19 @@ a.forum-item-title {
     margin-top: 15px;
     width: 120px;
 }
+
+.register-form {
+    margin-top: 10px;
+}
+
+.register-data-time {
+    width: 190px;
+}
+.button-register {
+    margin-top: 15px;
+    width: 190px;
+}
+
+.button-add-user {
+    margin-top: 2000px;
+}

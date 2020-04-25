@@ -20,6 +20,7 @@ namespace MyForum.Controllers
             _userManager = userManager;
             _signInManager = signInManager;
         }
+
         [HttpGet]
         public IActionResult Register()
         {
@@ -82,7 +83,7 @@ namespace MyForum.Controllers
             }
             var result = await _userManager.ConfirmEmailAsync(user, code);
             if (result.Succeeded)
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Topics");
             else
                 return View("Error");
         }
@@ -107,7 +108,7 @@ namespace MyForum.Controllers
                 var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "Topics");
                 }
                 else
                 {
@@ -123,7 +124,7 @@ namespace MyForum.Controllers
         {
             // удаляем аутентификационные куки
             await _signInManager.SignOutAsync();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Topics");
         }
 
         [HttpPost]
@@ -132,7 +133,7 @@ namespace MyForum.Controllers
         {
             // удаляем аутентификационные куки
             await _signInManager.SignOutAsync();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Topics");
         }
 
         [HttpGet]

@@ -17,12 +17,14 @@ namespace MyForum.Data
         public DateTime BirthDate { get; set; }
         public string Country { get; set; }
         public string City { get; set; }
-        public string PhotoName { get; set; }
+        public string NumberPhone { get; set; }
         public string AboutMe { get; set; }
         [Required]
         public DateTime RegisterDate { get; set; }
+        public string PhotoName { get; set; }
         public int IdGender { get; set; }
         public virtual Gender Gender { get; set; }
+
 
     }
 }

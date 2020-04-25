@@ -3,7 +3,6 @@
 
 @{
     ViewData["Title"] = "Зміна ролі";
-    Layout = null;
 }
 
 <br />
@@ -20,7 +19,7 @@
                    @(Model.UserRoles.Contains(role.Name) ? "checked=\"checked\"" : "") />@role.Name <br />
             }
     </div>
-    <button type="submit" class="btn btn-primary">Зберегти</button>
+    <button type="submit" class="btn btn-primary btn-dark">Зберегти</button>
+    <a asp-controller="Roles" asp-action="Index" class="btn btn-sm btn-light">Список ролей</a>
 </form>
 
-<a asp-controller="Users" asp-action="Index" class="btn btn-sm btn-light">Повернутися до списку</a>
