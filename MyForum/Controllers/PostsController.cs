@@ -33,7 +33,6 @@ namespace MyForum.Controllers
             
             if (topicId != null)
             {
-                Console.WriteLine(_topicId);
                 _topicId = Convert.ToInt32(topicId);
             }
             ViewBag.NameUser = User.Identity.Name;

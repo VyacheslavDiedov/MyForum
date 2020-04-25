@@ -9,22 +9,17 @@
 <h4>Topic</h4>
 <hr />
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-12">
         <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
+                <label>Тема</label>
+                <input class="form-control" name="Name">
             </div>
             <div class="form-group">
-                <label asp-for="TopicDescription" class="control-label"></label>
-                <input asp-for="TopicDescription" class="form-control" />
-                <span asp-validation-for="TopicDescription" class="text-danger"></span>
+                <label>Техт</label>
+                <textarea name="TopicDescription" class="form-control" rows="3"></textarea>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
+            <button type="submit" class="btn btn-secondary btn-lg btn-block">Відправити</button>
         </form>
     </div>
 </div>

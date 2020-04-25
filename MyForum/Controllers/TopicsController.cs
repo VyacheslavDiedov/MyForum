@@ -19,9 +19,12 @@ namespace MyForum.Controllers
         }
 
         // GET: Topics
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            return View(await _context.Topics.ToListAsync());
+            ViewBag.CountTopics = _context.Topics.Count();
+            ViewBag.CountUsers = _context.Users.Count();
+            ViewBag.CountPostsAll = _context.Posts.Count();
+            return View(_context.Topics.ToList());
         }
 
         // GET: Topics/Details/5
@@ -53,6 +56,7 @@ namespace MyForum.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Name,TopicDescription,TypeTopicId,TypeTopicName")] Topic topic)
         {
+            topic.AddTopic = DateTime.Now;
             if (ModelState.IsValid)
             {
                 _context.Add(topic);

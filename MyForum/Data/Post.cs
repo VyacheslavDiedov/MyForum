@@ -9,10 +9,9 @@ namespace MyForum.Data
     {
         [Key]
         public int Id { get; set; }
-        [Required]
-        [MaxLength(100)]
+        [MaxLength(180)]
         public string PostTitle { get; set; }
-        [Required]
+        [MaxLength(500)]
         public string PostBody { get; set; }
         public DateTime AddPost { get; set; }
         public string UserName { get; set; }
