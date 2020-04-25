@@ -251,3 +251,8 @@ a.forum-item-title {
 .position-right {
     float: right;
 }
+
+.button-enter {
+    margin-top: 15px;
+    width: 120px;
+}

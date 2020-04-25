@@ -1,6 +1,10 @@
 ﻿@model MyForum.ViewModels.LoginViewModel
 
-<h2>Вход в приложение</h2>
+@{
+    ViewData["Title"] = "Login";
+}
+
+<h2>Вхід на форум</h2>
 <form method="post" asp-controller="Account" asp-action="Login"
       asp-route-returnUrl="@Model.ReturnUrl">
     <div asp-validation-summary="ModelOnly"></div>
@@ -13,11 +17,12 @@
         <label asp-for="Password"></label><br />
         <input asp-for="Password" />
         <span asp-validation-for="Password"></span>
+
     </div>
+    <small>
+        <a asp-controller="Account" asp-action="ForgotPassword">Забули пароль?</a>
+    </small>
     <div>
-        <a asp-controller="Account" asp-action="ForgotPassword" class="nav-item nav-link">Забув пароль</a>
-    </div>
-    <div>
-        <input type="submit" value="Войти" />
+        <input class="btn btn-primary btn-dark button-enter" type="submit" value="Увійти" />
     </div>
 </form>
