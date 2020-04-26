@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using MyForum.Data;
 using MyForum.ViewModels;
 
@@ -19,7 +20,11 @@ namespace MyForum.Controllers
 
         public IActionResult Index() => View(_userManager.Users.ToList());
 
-        public IActionResult Create() => View();
+        public IActionResult Create()
+        {
+            ViewBag.Genders = new SelectList(AccountController.genders, "Id", "Name");
+            return View();
+        }
 
         [HttpPost]
         public async Task<IActionResult> Create(CreateUserViewModel model)
@@ -29,7 +34,7 @@ namespace MyForum.Controllers
                 User user = new User
                 {
                     Email = model.Email, UserName = model.Email, FirstName = model.FirstName, SecondName = model.SecondName,
-                    BirthDate = model.BirthDate, RegisterDate = DateTime.Now, EmailConfirmed = true
+                    BirthDate = model.BirthDate, RegisterDate = DateTime.Now, IdGender = model.IdGender, EmailConfirmed = true
                 };
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
@@ -49,13 +54,14 @@ namespace MyForum.Controllers
 
         public async Task<IActionResult> Edit(string id)
         {
+            ViewBag.Genders = new SelectList(AccountController.genders, "Id", "Name");
             User user = await _userManager.FindByIdAsync(id);
             if (user == null)
             {
                 return NotFound();
             }
-            EditUserViewModel model = new EditUserViewModel { Id = user.Id, Email = user.Email, BirthDate = user.BirthDate,
-                FirstName = user.FirstName, SecondName = user.SecondName };
+            EditUserViewModel model = new EditUserViewModel { Id = user.Id, Email = user.Email, BirthDate = user.BirthDate, 
+                FirstName = user.FirstName, SecondName = user.SecondName, IdGender = user.IdGender};
             return View(model);
         }
 

@@ -29,6 +29,7 @@ namespace MyForum.Data
                     FirstName = firstName,
                     SecondName = secondName,
                     RegisterDate = birthday,
+                    IdGender = 2,
                     EmailConfirmed = true
                 };
                 IdentityResult result = await userManager.CreateAsync(admin, password);

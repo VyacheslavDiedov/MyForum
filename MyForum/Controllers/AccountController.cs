@@ -1,10 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MyForum.Data;
 using MyForum.ViewModels;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using MyForum.Models;
 
 
@@ -15,25 +18,38 @@ namespace MyForum.Controllers
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
 
+        public static IEnumerable<Gender> genders = new List<Gender>
+        {
+            new Gender { Id = 1, Name = "Жінка" },
+            new Gender { Id = 2, Name = "Чоловік" }
+        };
+
+
         public AccountController(UserManager<User> userManager, SignInManager<User> signInManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+           
         }
 
         [HttpGet]
         public IActionResult Register()
         {
+            
+            ViewBag.Genders = new SelectList(genders, "Id", "Name");
             return View();
         }
         [HttpPost]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
+           
             if (ModelState.IsValid)
             {
                 User user = new User { Email = model.Email, UserName = model.Email, BirthDate = model.BirthDate, 
-                    FirstName = model.FirstName, SecondName = model.SecondName, RegisterDate = DateTime.Now
-            };
+                    FirstName = model.FirstName, SecondName = model.SecondName, RegisterDate = DateTime.Now, IdGender = model.IdGender
+                };
+               
+
                 // добавляем пользователя
                 var result = await _userManager.CreateAsync(user, model.Password);
                  if (result.Succeeded)
