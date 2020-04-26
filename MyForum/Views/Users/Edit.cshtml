@@ -9,7 +9,7 @@
         </div>
         <div class="form-group">
             <label asp-for="Email" class="control-label">Email</label>
-            <input type="text" asp-for="Email" class="form-control" />
+            <input type="email" asp-for="Email" class="form-control" />
         </div>
         <div class="form-group">
             <label asp-for="FirstName" class="control-label">Імя</label>
@@ -28,6 +28,24 @@
             <select asp-for="IdGender" asp-items="ViewBag.Genders"></select>
         </div>
         <div class="form-group">
+            <label asp-for="Country" class="control-label">Країна</label>
+            <input type="text" asp-for="Country" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="City" class="control-label">Місто</label>
+            <input type="text" asp-for="City" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="NumberPhone" class="control-label">Телефон</label>
+            <input asp-for="NumberPhone" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="AboutMe" class="control-label">Про мене</label>
+            <input type="text" asp-for="AboutMe" class="form-control" />
+        </div>
+
+        <div class="form-group">
             <input type="submit" value="Сохранить" class="btn btn-outline-secondary " />
         </div>
     </form>
+

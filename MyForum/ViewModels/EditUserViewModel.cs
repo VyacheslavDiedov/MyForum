@@ -22,6 +22,10 @@ namespace MyForum.ViewModels
         public DateTime BirthDate { get; set; }
         [Required]
         public int IdGender { get; set; }
+        public string Country { get; set; }
+        public string City { get; set; }
+        public string NumberPhone { get; set; }
+        public string AboutMe { get; set; }
     }
-
 }
+

@@ -68,7 +68,9 @@ namespace MyForum.Controllers
                 return NotFound();
             }
             EditUserViewModel model = new EditUserViewModel { Id = user.Id, Email = user.Email, BirthDate = user.BirthDate, 
-                FirstName = user.FirstName, SecondName = user.SecondName, IdGender = user.GenderId};
+                FirstName = user.FirstName, SecondName = user.SecondName, IdGender = user.GenderId, Country = user.Country,
+                City = user.City, AboutMe = user.AboutMe, NumberPhone = user.NumberPhone
+            };
             return View(model);
         }
 
@@ -85,6 +87,10 @@ namespace MyForum.Controllers
                     user.BirthDate = model.BirthDate;
                     user.FirstName = model.FirstName;
                     user.SecondName = model.SecondName;
+                    user.Country = model.Country;
+                    user.City = model.City;
+                    user.PhoneNumber = model.NumberPhone;
+                    user.AboutMe = model.AboutMe;
 
                     var result = await _userManager.UpdateAsync(user);
                     if (result.Succeeded)
@@ -162,10 +168,17 @@ namespace MyForum.Controllers
             return View(model);
         }
 
-        public IActionResult UserProfile()
+        [HttpGet]
+        public IActionResult UserProfile(string userId)
         {
-
-            return View(_userManager.Users.ToList().Where(p => User.Identity.Name == p.UserName));
+            if(userId == null) { 
+                ViewBag.NameUser = User.Identity.Name;
+                return View(_userManager.Users.ToList().Where(p => User.Identity.Name == p.UserName));
+            }
+            else
+            {
+                return View(_userManager.Users.ToList().Where(p => userId == p.Id));
+            }
         }
 
         [HttpPost]
