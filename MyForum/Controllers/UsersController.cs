@@ -1,6 +1,9 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -12,10 +15,14 @@ namespace MyForum.Controllers
     public class UsersController : Controller
     {
         UserManager<User> _userManager;
+        private readonly IWebHostEnvironment _appEnvironment;
+        ApplicationDbContext _db;
 
-        public UsersController(UserManager<User> userManager)
+        public UsersController(UserManager<User> userManager, IWebHostEnvironment appEnvironment, ApplicationDbContext context)
         {
             _userManager = userManager;
+            _appEnvironment = appEnvironment;
+            _db = context;
         }
 
         public IActionResult Index() => View(_userManager.Users.ToList());
@@ -34,7 +41,7 @@ namespace MyForum.Controllers
                 User user = new User
                 {
                     Email = model.Email, UserName = model.Email, FirstName = model.FirstName, SecondName = model.SecondName,
-                    BirthDate = model.BirthDate, RegisterDate = DateTime.Now, IdGender = model.IdGender, EmailConfirmed = true
+                    BirthDate = model.BirthDate, RegisterDate = DateTime.Now, GenderId = model.IdGender, EmailConfirmed = true
                 };
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
@@ -61,7 +68,7 @@ namespace MyForum.Controllers
                 return NotFound();
             }
             EditUserViewModel model = new EditUserViewModel { Id = user.Id, Email = user.Email, BirthDate = user.BirthDate, 
-                FirstName = user.FirstName, SecondName = user.SecondName, IdGender = user.IdGender};
+                FirstName = user.FirstName, SecondName = user.SecondName, IdGender = user.GenderId};
             return View(model);
         }
 
@@ -158,8 +165,32 @@ namespace MyForum.Controllers
         public IActionResult UserProfile()
         {
 
-            return View(_userManager.Users.ToList());
+            return View(_userManager.Users.ToList().Where(p => User.Identity.Name == p.UserName));
         }
+
+        [HttpPost]
+        public async Task<RedirectToActionResult> AddPhoto(IFormFile uploadedFile)
+        {
+
+            User user = await _userManager.FindByNameAsync(User.Identity.Name);
+
+            if (uploadedFile != null)
+            {
+                using (var fileStream = new FileStream(_appEnvironment.WebRootPath + @"\img\" + uploadedFile.FileName, FileMode.Create))
+                {
+                    uploadedFile.CopyTo(fileStream);
+                }
+
+                user.PhotoName = uploadedFile.FileName;
+                await _userManager.UpdateAsync(user);
+              //  await _db.SaveChangesAsync().ConfigureAwait(true);
+
+               
+            }
+            return RedirectToAction("UserProfile", "Users");
+        }
+
+
 
     }
 }

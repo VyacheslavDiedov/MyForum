@@ -11,38 +11,53 @@
         <div class="tabbable">
             <ul class="nav nav-tabs padding-18">
 
-                <div data-toggle="tab">
-                    <i class="green ace-icon fa fa-user bigger-120"></i>
-                    Profile
+                <div class="center " data-toggle="tab">
+                    <i class="green ace-icon fa fa-user bigger-120 "></i>
+                    Профіль
                 </div>
-
             </ul>
 
-            <div class="tab-content no-border padding-24">
+            <div class="tab-content no-border padding-24 imput-photo">
                 <div id="home" class="tab-pane in active">
                     <div class="row">
-                        <div class="col-xs-12 col-sm-3 center">
-                            <span class="profile-picture">
-                                <img class="editable img-responsive" alt=" Avatar" id="avatar2" src="http://bootdey.com/img/Content/avatar/avatar6.png">
-                            </span>
-
-                            <div class="space space-4"></div>
-
-                            <a href="#" class="btn btn-sm btn-block btn-success">
-                                <i class="ace-icon fa fa-plus-circle bigger-120"></i>
-                                <span class="bigger-110">Додати фото</span>
-                            </a>
-
-                        </div>
-
+                        @if (f.PhotoName != null) { 
+                            <div class="col-sm-3 center imput-photo under-user-photo" style="background: url('/img/@f.PhotoName') no-repeat center top/cover">
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="col-sm-3 center imput-photo under-user-photo" style="background: url('/img/notimages.png') no-repeat center top/cover">
+                            </div>
+                        }
                         <div class="col-xs-12 col-sm-9">
-                            <h4 class="blue">
-                                <span class="middle">@f.FirstName @f.SecondName</span>
-                            </h4>
 
                             <div class="profile-user-info">
                                 <div class="profile-info-row">
-                                    <div class="profile-info-name"> Username </div>
+                                    <div class="profile-info-name"> Ім'я </div>
+
+                                    <div class="profile-info-value">
+                                        <h4 class="blue">
+                                            <span class="middle">@f.FirstName</span>
+                                        </h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="profile-user-info">
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name">Фамілія</div>
+
+                                    <div class="profile-info-value">
+                                        <h4 class="blue">
+                                            <span class="middle">@f.SecondName</span>
+                                        </h4>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="profile-user-info">
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name">Електронна адреса </div>
 
                                     <div class="profile-info-value">
                                         <span>@f.Email</span>
@@ -50,48 +65,111 @@
                                 </div>
 
                                 <div class="profile-info-row">
-                                    <div class="profile-info-name"> Location </div>
+                                    <div class="profile-info-name">Дата народження</div>
 
                                     <div class="profile-info-value">
-                                        <i class="fa fa-map-marker light-orange bigger-110"></i>
-                                        <span>@f.Country</span>
-                                        <span>@f.City</span>
+                                        <span><td>@f.BirthDate.ToShortDateString()</td></span>
                                     </div>
                                 </div>
 
                                 <div class="profile-info-row">
-                                    <div class="profile-info-name"> Age </div>
+                                    <div class="profile-info-name">Дата реєстрації</div>
 
                                     <div class="profile-info-value">
-                                        <span>
-                                            @{
-                                                var age = DateTime.Now - f.BirthDate;
+                                        <span><td>@f.RegisterDate.ToShortDateString()</td></span>
+                                    </div>
+                                </div>
+
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name">Стать</div>
+                                    <div class="profile-info-value">
+                                        @if (f.GenderId == 2)
+                                        {
+                                            <span><td>Чоловіча</td></span>
                                         }
-                                        @age
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="profile-info-row">
-                                <div class="profile-info-name"> Дата реєстрації </div>
+                                        else
+                                        {
+                                            <span><td>Жіноча</td></span>
+                                        }
 
-                                <div class="profile-info-value">
-                                    <span>@f.RegisterDate</span>
-                                </div>
-                            </div>
-                            </div>
-
-                            <div class="hr hr-8 dotted"></div>
-
-                            <div class="profile-user-info">
-                                <div class="profile-info-row">
-                                    <div class="profile-info-name"> About me </div>
-
-                                    <div class="profile-info-value">
-                                        <a href="#" target="_blank">@f.AboutMe</a>
                                     </div>
                                 </div>
                             </div>
+                            @if (f.Country != null)
+                            {
+                                <div class="hr hr-8 dotted"></div>
+
+                                <div class="profile-user-info">
+                                    <div class="profile-info-row">
+                                        <div class="profile-info-name">Країна</div>
+                                        <div class="profile-info-value">
+                                            <span><td>@f.Country</td></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                            @if (f.City != null)
+                            {
+                                <div class="hr hr-8 dotted"></div>
+
+                                <div class="profile-user-info">
+                                    <div class="profile-info-row">
+                                        <div class="profile-info-name">Місто</div>
+                                        <div class="profile-info-value">
+                                            <span><td>@f.City</td></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                            @if (f.PhotoName != null)
+                            {
+                                <div class="hr hr-8 dotted"></div>
+
+                                <div class="profile-user-info">
+                                    <div class="profile-info-row">
+                                        <div class="profile-info-name">Телефон</div>
+                                        <div class="profile-info-value">
+                                            <span><td>@f.PhoneNumber</td></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                            @if (f.AboutMe != null)
+                            {
+                                <div class="hr hr-8 dotted"></div>
+
+                                <div class="profile-user-info">
+                                    <div class="profile-info-row">
+                                        <div class="profile-info-name">Про мене</div>
+                                        <div class="profile-info-value">
+                                            <span><td>@f.AboutMe</td></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
                         </div>
+
+                        <div class="col-sm-3 center ">
+
+
+
+                            <form asp-action="AddPhoto" asp-controller="Users" method="post" enctype="multipart/form-data">
+                                <label>
+                                    <input type="file" name="uploadedFile" id="file" class="inputfile"/>
+                                    <a for="file" class="btn btn-primary btn-dark">
+                                        <i class="ace-icon fa fa-plus-circle bigger-120 text-color"></i>
+                                        <span class="bigger-110 text-color">Додати фото</span>
+                                    </a>
+                                </label>
+                            </form>
+                            <a for="file" class="btn btn-primary btn-dark">
+                                <svg class ="text-color"  width="15" height="15" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="user-edit" class="svg-inline--fa fa-user-edit fa-w-20" role="img" 
+                                     xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><path fill="currentColor" d="M224 256c70.7 0 128-57.3 128-128S294.7 0 224 0 96 57.3 96 128s57.3 128 128 128zm89.6 32h-16.7c-22.2 10.2-46.9 16-72.9 16s-50.6-5.8-72.9-16h-16.7C60.2 288 0 348.2 0 422.4V464c0 26.5 21.5 48 48 48h274.9c-2.4-6.8-3.4-14-2.6-21.3l6.8-60.9 1.2-11.1 7.9-7.9 77.3-77.3c-24.5-27.7-60-45.5-99.9-45.5zm45.3 145.3l-6.8 61c-1.1 10.2 7.5 18.8 17.6 17.6l60.9-6.8 137.9-137.9-71.7-71.7-137.9 137.8zM633 268.9L595.1 231c-9.3-9.3-24.5-9.3-33.8 0l-37.8 37.8-4.1 4.1 71.8 71.7 41.8-41.8c9.3-9.4 9.3-24.5 0-33.9z"></path></svg>
+                                <span class="bigger-110 text-color">Редагувати дані</span>
+                            </a>
+
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -99,3 +177,10 @@
     </div>
 
 }
+
+<script>
+    var input = document.querySelector("input[type='file']");
+    input.onchange = function () {
+        this.form.submit();
+    }
+</script>

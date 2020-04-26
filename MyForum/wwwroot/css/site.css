@@ -269,6 +269,30 @@ a.forum-item-title {
     width: 190px;
 }
 
-.button-add-user {
-    margin-top: 2000px;
+.inputfile {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+
+.imput-photo {
+    margin-top: 10px;
+}
+.under-user-photo {
+    margin-bottom: 20px;
+}
+
+.text-color {
+    color: #999999;
+}
+
+.text-color:hover {
+    color:dimgrey ;
+}
+
+.profile-user {
+    text-align: center;
 }

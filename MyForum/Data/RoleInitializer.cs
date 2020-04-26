@@ -13,8 +13,13 @@ namespace MyForum.Data
         {
             string adminEmail = "admin@gmail.com";
             string password = "_Aa123456";
-            string firstName = "Admin";
-            string secondName = "Admin";
+            string firstName = "Адміністратор";
+            string secondName = "Іван";
+            string phoneNumber = "0970000000";
+            string country = "Україна";
+            string city = "Вінниця";
+            string aboutMe = "I love C#";
+
             DateTime birthday = new DateTime(2001, 1, 1);
             if (await roleManager.FindByNameAsync("admin") == null)
             {
@@ -29,7 +34,11 @@ namespace MyForum.Data
                     FirstName = firstName,
                     SecondName = secondName,
                     RegisterDate = birthday,
-                    IdGender = 2,
+                    PhoneNumber = phoneNumber,
+                    Country = country,
+                    City = city,
+                    AboutMe = aboutMe,
+                    GenderId = 2,
                     EmailConfirmed = true
                 };
                 IdentityResult result = await userManager.CreateAsync(admin, password);

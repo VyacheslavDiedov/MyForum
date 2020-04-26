@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -22,9 +23,7 @@ namespace MyForum.Data
         [Required]
         public DateTime RegisterDate { get; set; }
         public string PhotoName { get; set; }
-        public int IdGender { get; set; }
+        public int GenderId { get; set; }
         public virtual Gender Gender { get; set; }
-
-
     }
 }

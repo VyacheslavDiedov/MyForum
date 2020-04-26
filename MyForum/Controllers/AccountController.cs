@@ -46,7 +46,7 @@ namespace MyForum.Controllers
             if (ModelState.IsValid)
             {
                 User user = new User { Email = model.Email, UserName = model.Email, BirthDate = model.BirthDate, 
-                    FirstName = model.FirstName, SecondName = model.SecondName, RegisterDate = DateTime.Now, IdGender = model.IdGender
+                    FirstName = model.FirstName, SecondName = model.SecondName, RegisterDate = DateTime.Now, GenderId = model.IdGender
                 };
                
 
