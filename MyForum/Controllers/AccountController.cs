@@ -42,7 +42,7 @@ namespace MyForum.Controllers
         [HttpPost]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
-            var userIsBD = _userManager.FindByEmailAsync(model.Email);
+            var userIsBD = await _userManager.FindByEmailAsync(model.Email);
             if (userIsBD == null)
             {
                 if (ModelState.IsValid)
