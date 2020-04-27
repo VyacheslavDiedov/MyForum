@@ -17,7 +17,7 @@ namespace MyForum.ViewModels
         [Display(Name = "Пароль")]
         public string Password { get; set; }
 
-        [Display(Name = "Запомнить?")]
+        [Display(Name = "Запамятати?")]
         public bool RememberMe { get; set; }
 
         public string ReturnUrl { get; set; }

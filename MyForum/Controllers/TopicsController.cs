@@ -27,24 +27,6 @@ namespace MyForum.Controllers
             return View(_context.Topics.ToList());
         }
 
-        // GET: Topics/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var topic = await _context.Topics
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (topic == null)
-            {
-                return NotFound();
-            }
-
-            return View(topic);
-        }
-
         // GET: Topics/Create
         public IActionResult Create()
         {

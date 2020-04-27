@@ -15,7 +15,7 @@ namespace MyForum.ViewModels
 
         [Required] [Display(Name = "Ім'я")] public string FirstName { get; set; }
 
-        [Required] [Display(Name = "Фамилія")] public string SecondName { get; set; }
+        [Required] [Display(Name = "Прізвище")] public string SecondName { get; set; }
 
         [Required]
         [Display(Name = "Дата народження")]
@@ -35,7 +35,7 @@ namespace MyForum.ViewModels
         public string Password { get; set; }
 
         [Required]
-        [Compare("Password", ErrorMessage = "Пароли не совпадают")]
+        [Compare("Password", ErrorMessage = "Паролі не співпадають")]
         [DataType(DataType.Password)]
         [Display(Name = "Підтвердити пароль*")]
         public string PasswordConfirm { get; set; }
