@@ -66,16 +66,38 @@
                                     <a asp-controller="Posts" asp-action="Index" asp-route-topicId="@topic.Id" class="forum-item-title">@topic.Name </a>
                                     <div class="forum-sub-title">@topic.TopicDescription</div>
                                 </div>
-                                <div class="col-md-2 forum-info">
-                                    <span class="views-number">
-                                    </span>
-                                    <div>
-                                        <small>Додано:</small>
+
+                                @if (User.IsInRole("admin"))
+                                {
+                                    <div class="col-md-2 forum-info">
+                                        <a title="Змінити" asp-action="Edit" asp-route-id="@topic.Id">
+                                            <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M8.96853 3.3221L11.7733 6.18553L4.67373 13.4337L1.87059 10.5703L8.96853 3.3221ZM13.9015 2.6315L12.6507 1.35451C12.1673 0.860997 11.3824 0.860997 10.8974 1.35451L9.69921 2.57774L12.5039 5.4412L13.9015 4.01437C14.2764 3.63157 14.2764 3.01427 13.9015 2.6315ZM0.402824 14.5951C0.351782 14.8296 0.559184 15.0398 0.788927 14.9827L3.91432 14.2091L1.11119 11.3456L0.402824 14.5951Z" fill="#666666" />
+                                            </svg>
+                                        </a>
+                                        <a title="Видалити" asp-action="Delete" asp-route-id="@topic.Id">
+                                            <svg width="15" height="15" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                                 viewBox="0 0 511.999 511.999" xml:space="preserve">
+                                            <path style="fill: #666666;" d="M384.955,256l120.28-120.28c9.019-9.019,9.019-23.642,0-32.66L408.94,6.765c-9.019-9.019-23.642-9.019-32.66,0l-120.28,120.28L135.718,6.765c-9.019-9.019-23.642-9.019-32.66,0L6.764,103.058c-9.019,9.019-9.019,23.642,0,32.66l120.28,120.28L6.764,376.28c-9.019,9.019-9.019,23.642,0,32.66l96.295,96.294c9.019,9.019,23.642,9.019,32.66,0l120.28-120.28l120.28,120.28c9.019,9.019,23.642,9.019,32.66,0l96.295-96.294c9.019-9.019,9.019-23.642,0-32.66L384.955,256z" />
+                                            </svg>
+                                        </a>
                                     </div>
-                                    <div>
-                                        <small>@topic.AddTopic</small>
+                                }
+                                else
+                                {
+                                    <div class="col-md-2 forum-info">
+                                        <span class="views-number">
+                                        </span>
+                                        <div>
+                                            <small>Додано:</small>
+                                        </div>
+                                        <div>
+                                            <small>@topic.AddTopic</small>
+                                        </div>
                                     </div>
-                                </div>
+                                }
+
+                                
                             </div>
                         </div>
                     }

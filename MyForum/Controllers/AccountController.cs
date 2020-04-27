@@ -169,10 +169,7 @@ namespace MyForum.Controllers
                 var user = await _userManager.FindByEmailAsync(model.Email);
                 if (user == null || !(await _userManager.IsEmailConfirmedAsync(user)))
                 {
-                    // пользователь с данным email может отсутствовать в бд
-                    // тем не менее мы выводим стандартное сообщение, чтобы скрыть 
-                    // наличие или отсутствие пользователя в бд
-                    return View("ForgotPasswordConfirmation");
+                    return View("Error");
                 }
 
                 var code = await _userManager.GeneratePasswordResetTokenAsync(user);
