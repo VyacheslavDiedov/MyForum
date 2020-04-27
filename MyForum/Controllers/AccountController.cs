@@ -24,7 +24,6 @@ namespace MyForum.Controllers
             new Gender { Id = 2, Name = "Чоловік" }
         };
 
-
         public AccountController(UserManager<User> userManager, SignInManager<User> signInManager)
         {
             _userManager = userManager;
@@ -39,42 +38,56 @@ namespace MyForum.Controllers
             ViewBag.Genders = new SelectList(genders, "Id", "Name");
             return View();
         }
+
         [HttpPost]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
-           
-            if (ModelState.IsValid)
+            var userIsBD = _userManager.FindByEmailAsync(model.Email);
+            if (userIsBD == null)
             {
-                User user = new User { Email = model.Email, UserName = model.Email, BirthDate = model.BirthDate, 
-                    FirstName = model.FirstName, SecondName = model.SecondName, RegisterDate = DateTime.Now, GenderId = model.IdGender
-                };
-               
-
-                // добавляем пользователя
-                var result = await _userManager.CreateAsync(user, model.Password);
-                 if (result.Succeeded)
+                if (ModelState.IsValid)
                 {
-                    // генерация токена для пользователя
-                    var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                    var callbackUrl = Url.Action(
-                        "ConfirmEmail",
-                        "Account",
-                        new { userId = user.Id, code = code },
-                        protocol: HttpContext.Request.Scheme);
-                    EmailService emailService = new EmailService();
-                    await emailService.SendEmailAsync(model.Email, "Confirm your account",
-                        $"Вітаю Вас на My Forum.<br/><br/>Підтвердіть реєстрацію, перейдя за посиланням: <a href='{callbackUrl}'>link</a><br/><br/>Дякую, що Ви з нами!");
- 
-                    return View("SendLetter");
-                }
-                else
-                {
-                    foreach (var error in result.Errors)
+                    if (model.IdGender == null)
                     {
-                        ModelState.AddModelError(string.Empty, error.Description);
+                        model.IdGender = 1;
+                    }
+                    User user = new User
+                    {
+                        Email = model.Email, UserName = model.Email, BirthDate = model.BirthDate,
+                        FirstName = model.FirstName, SecondName = model.SecondName, RegisterDate = DateTime.Now,
+                        GenderId = model.IdGender
+                    };
+
+                    var result = await _userManager.CreateAsync(user, model.Password);
+                    if (result.Succeeded)
+                    {
+                        var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                        var callbackUrl = Url.Action(
+                            "ConfirmEmail",
+                            "Account",
+                            new {userId = user.Id, code = code},
+                            protocol: HttpContext.Request.Scheme);
+                        EmailService emailService = new EmailService();
+                        await emailService.SendEmailAsync(model.Email, "Confirm your account",
+                            $"Вітаю Вас на My Forum.<br/><br/>Підтвердіть реєстрацію, перейдя за посиланням: <a href='{callbackUrl}'>link</a><br/><br/>Дякую, що Ви з нами!");
+
+                        return View("SendLetter");
+                    }
+                    else
+                    {
+                        foreach (var error in result.Errors)
+                        {
+                            ModelState.AddModelError(string.Empty, error.Description);
+                        }
                     }
                 }
             }
+            else
+            {
+                ModelState.AddModelError(string.Empty, "Користувач існує");
+                return View(model);
+            }
+
             return View(model);
         }
 
@@ -113,7 +126,6 @@ namespace MyForum.Controllers
                 var user = await _userManager.FindByNameAsync(model.Email);
                 if (user != null)
                 {
-                    // проверяем, подтвержден ли email
                     if (!await _userManager.IsEmailConfirmedAsync(user))
                     {
                         ModelState.AddModelError(string.Empty, "Ви не підтвердили свій email");
@@ -138,7 +150,6 @@ namespace MyForum.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()
         {
-            // удаляем аутентификационные куки
             await _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Topics");
         }
@@ -147,7 +158,6 @@ namespace MyForum.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> LogOff()
         {
-            // удаляем аутентификационные куки
             await _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Topics");
         }

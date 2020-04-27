@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -18,7 +19,6 @@ namespace MyForum.Controllers
             _context = context;
         }
 
-        // GET: Topics
         public IActionResult Index()
         {
             ViewBag.CountTopics = _context.Topics.Count();
@@ -48,7 +48,7 @@ namespace MyForum.Controllers
             return View(topic);
         }
 
-        // GET: Topics/Edit/5
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -64,10 +64,8 @@ namespace MyForum.Controllers
             return View(topic);
         }
 
-        // POST: Topics/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Authorize(Roles = "admin")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,TopicDescription,TypeTopicId,TypeTopicName")] Topic topic)
         {
@@ -75,7 +73,7 @@ namespace MyForum.Controllers
             {
                 return NotFound();
             }
-
+            topic.AddTopic = DateTime.Now;
             if (ModelState.IsValid)
             {
                 try
@@ -99,7 +97,7 @@ namespace MyForum.Controllers
             return View(topic);
         }
 
-        // GET: Topics/Delete/5
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -117,7 +115,7 @@ namespace MyForum.Controllers
             return View(topic);
         }
 
-        // POST: Topics/Delete/5
+        [Authorize(Roles = "admin")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

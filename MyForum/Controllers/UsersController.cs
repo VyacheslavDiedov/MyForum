@@ -2,6 +2,7 @@
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -16,17 +17,16 @@ namespace MyForum.Controllers
     {
         UserManager<User> _userManager;
         private readonly IWebHostEnvironment _appEnvironment;
-        ApplicationDbContext _db;
 
-        public UsersController(UserManager<User> userManager, IWebHostEnvironment appEnvironment, ApplicationDbContext context)
+        public UsersController(UserManager<User> userManager, IWebHostEnvironment appEnvironment)
         {
             _userManager = userManager;
             _appEnvironment = appEnvironment;
-            _db = context;
         }
 
         public IActionResult Index() => View(_userManager.Users.ToList());
 
+        [Authorize(Roles = "admin")]
         public IActionResult Create()
         {
             ViewBag.Genders = new SelectList(AccountController.genders, "Id", "Name");
@@ -34,6 +34,7 @@ namespace MyForum.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Create(CreateUserViewModel model)
         {
             if (ModelState.IsValid)
@@ -59,6 +60,7 @@ namespace MyForum.Controllers
             return View(model);
         }
 
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Edit(string id)
         {
             ViewBag.Genders = new SelectList(AccountController.genders, "Id", "Name");
@@ -75,6 +77,7 @@ namespace MyForum.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Edit(EditUserViewModel model)
         {
             if (ModelState.IsValid)
@@ -110,6 +113,7 @@ namespace MyForum.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "admin")]
         public async Task<ActionResult> Delete(string id)
         {
             User user = await _userManager.FindByIdAsync(id);
@@ -120,6 +124,7 @@ namespace MyForum.Controllers
             return RedirectToAction("Index");
         }
 
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> ChangePassword(string id)
         {
             User user = await _userManager.FindByIdAsync(id);
@@ -132,6 +137,7 @@ namespace MyForum.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> ChangePassword(ChangePasswordViewModel model)
         {
             if (ModelState.IsValid)

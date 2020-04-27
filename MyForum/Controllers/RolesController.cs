@@ -12,16 +12,18 @@ using Microsoft.AspNetCore.DataProtection.KeyManagement;
 
 namespace MyForum.Controllers
 {
+    [Authorize(Roles = "admin")]
     public class RolesController : Controller
     {
-
         RoleManager<IdentityRole> _roleManager;
         UserManager<User> _userManager;
+
         public RolesController(RoleManager<IdentityRole> roleManager, UserManager<User> userManager)
         {
             _roleManager = roleManager;
             _userManager = userManager;
         }
+
         [HttpGet]
         public IActionResult Index() => View(_roleManager.Roles.ToList());
 
@@ -59,6 +61,7 @@ namespace MyForum.Controllers
             }
             return RedirectToAction("Index");
         }
+
         [HttpGet("userList")]
         public IActionResult UserList() => View(_userManager.Users.ToList());
 
@@ -83,7 +86,6 @@ namespace MyForum.Controllers
         }
 
         [HttpPost("role")]
-
         public async Task<IActionResult> Edit([FromForm]string userId, [FromForm]List<string> roles)
         {
             var user = await _userManager.FindByIdAsync(userId).ConfigureAwait(true);
