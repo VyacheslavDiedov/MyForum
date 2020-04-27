@@ -63,9 +63,9 @@ namespace MyForum.Controllers
                         protocol: HttpContext.Request.Scheme);
                     EmailService emailService = new EmailService();
                     await emailService.SendEmailAsync(model.Email, "Confirm your account",
-                        $"Подтвердите регистрацию, перейдя по ссылке: <a href='{callbackUrl}'>link</a>");
+                        $"Вітаю Вас на My Forum.<br/><br/>Підтвердіть реєстрацію, перейдя за посиланням: <a href='{callbackUrl}'>link</a><br/><br/>Дякую, що Ви з нами!");
  
-                    return Content("Для завершения регистрации проверьте электронную почту и перейдите по ссылке, указанной в письме");
+                    return View("SendLetter");
                 }
                 else
                 {
@@ -116,7 +116,7 @@ namespace MyForum.Controllers
                     // проверяем, подтвержден ли email
                     if (!await _userManager.IsEmailConfirmedAsync(user))
                     {
-                        ModelState.AddModelError(string.Empty, "Вы не подтвердили свой email");
+                        ModelState.AddModelError(string.Empty, "Ви не підтвердили свій email");
                         return View(model);
                     }
                 }
@@ -128,7 +128,7 @@ namespace MyForum.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Неправильный логин и (или) пароль");
+                    ModelState.AddModelError("", "Невірний логін і (або) пароль");
                 }
             }
             return View(model);
@@ -176,7 +176,7 @@ namespace MyForum.Controllers
                 var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: HttpContext.Request.Scheme);
                 EmailService emailService = new EmailService();
                 await emailService.SendEmailAsync(model.Email, "Reset Password",
-                    $"Для сброса пароля пройдите по ссылке: <a href='{callbackUrl}'>link</a>");
+                    $"Хтось спробував відновити ваш пароль.<br/>Якщо це були не ви, можете проігнорувати цього листа.<br/>Для активації нового паролю перейдіть за посиланням:<br/> <a href='{callbackUrl}'>link</a>");
                 return View("ForgotPasswordConfirmation");
             }
             return View(model);
@@ -213,6 +213,12 @@ namespace MyForum.Controllers
                 ModelState.AddModelError(string.Empty, error.Description);
             }
             return View(model);
+        }
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult SendLetter()
+        {
+            return View();
         }
     }
 }
