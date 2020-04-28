@@ -60,7 +60,6 @@ namespace MyForum.Controllers
             return View(model);
         }
 
-        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Edit(string id)
         {
             ViewBag.Genders = new SelectList(AccountController.genders, "Id", "Name");
@@ -77,7 +76,6 @@ namespace MyForum.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Edit(EditUserViewModel model)
         {
             if (ModelState.IsValid)
